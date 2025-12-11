@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -57,7 +56,7 @@
         button {
             width: 100%;
             padding: 14px;
-            background: #1a73e8;
+            background: #25D366; /* لون واتساب الأخضر */
             border: none;
             color: white;
             font-size: 18px;
@@ -68,7 +67,7 @@
             transition: 0.3s;
         }
         button:hover {
-            background: #1666c1;
+            background: #128C7E;
         }
         h3 {
             margin-top: 25px;
@@ -77,13 +76,10 @@
     </style>
 </head>
 <body>
-
 <div class="container">
-
     <img src="LOGO-BLUE.png" class="logo" alt="Halal Market Logo">
-
     <h2>طلب جديد - Halal Market</h2>
-
+    
     <label>فرع</label>
     <select id="branch">
         <option value="المرج القديمه">المرج القديمه</option>
@@ -94,76 +90,68 @@
         <option value="ابو زعبل">ابو زعبل</option>
     </select>
 
-
     <label>مطلوب</label>
-    <textarea id="needed" rows="2"></textarea>
+    <textarea id="needed" rows="4" placeholder="اكتب كل الصنف المطلوب كمية ونوع..."></textarea>
 
     <h3>معلومات العميل</h3>
-
     <label>اسم العميل</label>
-    <input type="text" id="customerName">
+    <input type="text" id="customerName" placeholder="مثال: أحمد محمد">
 
-    <label>رقم العميل</label>
-    <input type="text" id="phone1">
+    <label>رقم العميل (أو رقم المستلم)</label>
+    <input type="text" id="phone1" placeholder="مثال: 01012345678" dir="ltr">
 
-    <label>رقم آخر</label>
-    <input type="text" id="phone2">
+    <label>رقم آخر (اختياري)</label>
+    <input type="text" id="phone2" placeholder="رقم إضافي إن وجد">
 
-    <label>العنوان</label>
-    <textarea id="address" rows="2"></textarea>
+    <label>العنوان بالتفصيل</label>
+    <textarea id="address" rows="3" placeholder="شارع - حي - معالم قريبة - رقم المنزل"></textarea>
 
-    <label>ملاحظات</label>
-    <textarea id="notes" rows="2"></textarea>
+    <label>ملاحظات إضافية</label>
+    <textarea id="notes" rows="2" placeholder="مثال: التوصيل بعد العصر، دفع كاش..."></textarea>
 
-    <button onclick="sendToWhatsApp()">إرسال على WhatsApp</button>
-
+    <button onclick="sendToWhatsApp()">إرسال الطلب على واتساب</button>
 </div>
 
 <script>
 function sendToWhatsApp() {
-    const branch = document.getElementById("branch").value;
-    const needed = document.getElementById("needed").value;
-    const name = document.getElementById("customerName").value;
-    const phone1 = document.getElementById("phone1").value;
-    const phone2 = document.getElementById("phone2").value;
-    const address = document.getElementById("address").value;
-    const notes = document.getElementById("notes").value;
+    // جلب القيم
+    const branch = document.getElementById("branch").value.trim();
+    const needed = document.getElementById("needed").value.trim();
+    const name = document.getElementById("customerName").value.trim();
+    const phone1 = document.getElementById("phone1").value.trim();
+    const phone2 = document.getElementById("phone2").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const notes = document.getElementById("notes").value.trim();
 
-    const message =
-`#HALAL MARKET ORDER
---------------------------
-*الفرع:* ${branch}
+    // تحقق من الحقول الأساسية
+    if (!branch || !needed || !name || !phone1 || !address) {
+        alert(" يرجى ملء جميع الحقول المطلوبة (الفرع، المطلوب، الاسم، الرقم، العنوان)");
+        return;
+    }
 
-*تفاصيل الأوردر:*
-${orderDetails}
+    // بناء الرسالة بشكل جميل ومنسق
+    let message = `*طلب جديد - HALAL MARKET* %0A%0A`;
+    message += `*الفرع:* ${branch}%0A%0A`;
+    message += ` *المطلوب:*%0A${needed.replace(/\n/g, "%0A")}%0A%0A`;
+    message += ` *بيانات العميل:*%0A`;
+    message += `└ الاسم: ${name}%0A`;
+    message += `└ الهاتف: ${phone1}${phone2 ? " | " + phone2 : ""}%0A%0A`;
+    message += ` *العنوان:*%0A${address.replace(/\n/g, "%0A")}%0A%0A`;
+    if (notes) {
+        message += ` *ملاحظات:*%0A${notes.replace(/\n/g, "%0A")}%0A%0A`;
+    }
+    message += `──────────────────%0A`;
+    message += `شكرًا لثقتكم ❤️`;
 
-*مطلوب:*
-${needed}
+    // رقم الواتساب الذي سيتم إرسال الطلب إليه (غيّر الرقم هنا)
+    const adminNumber = "201001234567"; // ← ضع رقمك أو رقم المسؤول هنا (بدون + أو 00)
 
-*بيانات العميل*
-- الاسم: ${name}
-- رقم العميل: ${phone1}
-- رقم آخر: ${phone2}
+    // رابط واتساب المباشر (يعمل على الموبايل والكمبيوتر)
+    const whatsappURL = `https://wa.me/${adminNumber}?text=${message}`;
 
-*العنوان:*
-${address}
-
-*ملاحظات:*
-${notes}
---------------------------`;
-
-    const encodedMessage = encodeURIComponent(message);
-
-    // فتح التطبيق أو WhatsApp Web
-    window.location.href = `whatsapp://send?text=${encodedMessage}`;
-
-    setTimeout(() => {
-        window.location.href = `https://wa.me/?text=${encodedMessage}`;
-    }, 800);
+    // فتح الرابط
+    window.open(whatsappURL, "_blank");
 }
 </script>
-
 </body>
 </html>
-
-
