@@ -114,43 +114,44 @@
 
 <script>
 function sendToWhatsApp() {
-    // جلب القيم
-    const branch = document.getElementById("branch").value.trim();
-    const needed = document.getElementById("needed").value.trim();
-    const name = document.getElementById("customerName").value.trim();
-    const phone1 = document.getElementById("phone1").value.trim();
-    const phone2 = document.getElementById("phone2").value.trim();
-    const address = document.getElementById("address").value.trim();
-    const notes = document.getElementById("notes").value.trim();
+    // جلب القيم
+    const branch = document.getElementById("branch").value.trim();
+    const needed = document.getElementById("needed").value.trim();
+    const name = document.getElementById("customerName").value.trim();
+    const phone1 = document.getElementById("phone1").value.trim();
+    const phone2 = document.getElementById("phone2").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const notes = document.getElementById("notes").value.trim();
 
-    // تحقق من الحقول الأساسية
-    if (!branch || !needed || !name || !phone1 || !address) {
-        alert(" يرجى ملء جميع الحقول المطلوبة (الفرع، المطلوب، الاسم، الرقم، العنوان)");
-        return;
-    }
+    // تحقق من الحقول الأساسية
+    if (!branch || !needed || !name || !phone1 || !address) {
+        alert("⚠️ يرجى ملء جميع الحقول المطلوبة (الفرع، المطلوب، الاسم، الرقم، العنوان)");
+        return;
+    }
 
-    // بناء الرسالة بشكل جميل ومنسق
-    let message = `*طلب جديد - HALAL MARKET* %0A%0A`;
-    message += `*الفرع:* ${branch}%0A%0A`;
-    message += ` *المطلوب:*%0A${needed.replace(/\n/g, "%0A")}%0A%0A`;
-    message += ` *بيانات العميل:*%0A`;
-    message += `└ الاسم: ${name}%0A`;
-    message += `└ الهاتف: ${phone1}${phone2 ? " | " + phone2 : ""}%0A%0A`;
-    message += ` *العنوان:*%0A${address.replace(/\n/g, "%0A")}%0A%0A`;
-    if (notes) {
-        message += ` *ملاحظات:*%0A${notes.replace(/\n/g, "%0A")}%0A%0A`;
-    }
-    message += `──────────────────%0A`;
-    message += `شكرًا لثقتكم ❤️`;
+    // بناء الرسالة بشكل جميل ومنسق
+    let message = `*🛒 طلب جديد - HALAL MARKET* %0A%0A`;
+    message += `📍 *الفرع:* ${branch}%0A%0A`;
+    message += `🛍️ *المطلوب:*%0A${needed.replace(/\n/g, "%0A")}%0A%0A`;
+    message += `👤 *بيانات العميل:*%0A`;
+    message += `└ الاسم: ${name}%0A`;
+    message += `└ الهاتف: ${phone1}${phone2 ? " | " + phone2 : ""}%0A%0A`;
+    message += `🏠 *العنوان:*%0A${address.replace(/\n/g, "%0A")}%0A%0A`;
+    if (notes) {
+        message += `📝 *ملاحظات:*%0A${notes.replace(/\n/g, "%0A")}%0A%0A`;
+    }
+    message += `──────────────────%0A`;
+    message += `شكرًا لثقتكم ❤️`;
 
+    // **التغيير هنا:** إزالة رقم محدد واستخدام رابط مشاركة عامة
+    // سيؤدي هذا الرابط إلى فتح تطبيق واتساب وعرض الرسالة، ثم يطلب من المستخدم اختيار جهة الاتصال للإرسال إليها.
+    const whatsappURL = `https://wa.me/?text=${message}`; // استخدمنا wa.me/ فقط بدون رقم
 
-    // رابط واتساب المباشر (يعمل على الموبايل والكمبيوتر)
-    const whatsappURL = `https://wa.me/${adminNumber}?text=${message}`;
-
-    // فتح الرابط
-    window.open(whatsappURL, "_blank");
+    // فتح الرابط
+    window.open(whatsappURL, "_blank");
 }
 </script>
 </body>
 </html>
+
 
