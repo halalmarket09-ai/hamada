@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halal Market Order</title>
+    <style>
+        body {
+            background: #f0f2f5;
+            font-family: 'Tahoma', sans-serif;
+            direction: rtl;
+            padding: 20px;
+        }
+        .container {
+            max-width: 480px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        img.logo {
+            display: block;
+            width: 140px;
+            margin: 0 auto 20px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 12px 0 6px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 15px;
+            background: #fafafa;
+            transition: 0.3s;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #1a73e8;
+            outline: none;
+            background: #fff;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #1a73e8;
+            border: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #1666c1;
+        }
+        h3 {
+            margin-top: 25px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <img src="LOGO-BLUE.png" class="logo" alt="Halal Market Logo">
+
+    <h2>طلب جديد - Halal Market</h2>
+
+    <label>فرع</label>
+    <select id="branch">
+        <option value="المرج القديمه">المرج القديمه</option>
+        <option value="المرج الجديده">المرج الجديده</option>
+        <option value="القلج">القلج</option>
+        <option value="الجبل الاصفر">الجبل الاصفر</option>
+        <option value="الخانكه">الخانكه</option>
+        <option value="ابو زعبل">ابو زعبل</option>
+    </select>
+
+    <label>تفاصيل الأوردر</label>
+    <textarea id="orderDetails" rows="3"></textarea>
+
+    <label>مطلوب</label>
+    <textarea id="needed" rows="2"></textarea>
+
+    <h3>معلومات العميل</h3>
+
+    <label>اسم العميل</label>
+    <input type="text" id="customerName">
+
+    <label>رقم العميل</label>
+    <input type="text" id="phone1">
+
+    <label>رقم آخر</label>
+    <input type="text" id="phone2">
+
+    <label>العنوان</label>
+    <textarea id="address" rows="2"></textarea>
+
+    <label>ملاحظات</label>
+    <textarea id="notes" rows="2"></textarea>
+
+    <button onclick="sendToWhatsApp()">إرسال على WhatsApp</button>
+
+</div>
+
+<script>
+function sendToWhatsApp() {
+    const branch = document.getElementById("branch").value;
+    const orderDetails = document.getElementById("orderDetails").value;
+    const needed = document.getElementById("needed").value;
+    const name = document.getElementById("customerName").value;
+    const phone1 = document.getElementById("phone1").value;
+    const phone2 = document.getElementById("phone2").value;
+    const address = document.getElementById("address").value;
+    const notes = document.getElementById("notes").value;
+
+    const message =
+`#HALAL MARKET ORDER
+--------------------------
+📍 *الفرع:* ${branch}
+
+🛒 *تفاصيل الأوردر:*
+${orderDetails}
+
+📦 *مطلوب:*
+${needed}
+
+👤 *بيانات العميل*
+- الاسم: ${name}
+- رقم العميل: ${phone1}
+- رقم آخر: ${phone2}
+
+🏠 *العنوان:*
+${address}
+
+📝 *ملاحظات:*
+${notes}
+--------------------------`;
+
+    const encodedMessage = encodeURIComponent(message);
+
+    // فتح التطبيق أو WhatsApp Web
+    window.location.href = `whatsapp://send?text=${encodedMessage}`;
+
+    setTimeout(() => {
+        window.location.href = `https://wa.me/?text=${encodedMessage}`;
+    }, 800);
+}
+</script>
+
+</body>
+</html>
