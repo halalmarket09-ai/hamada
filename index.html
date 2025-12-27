@@ -134,14 +134,13 @@ function sendToWhatsApp() {
     message += ` *الفرع:* ${branch}%0A%0A`;
     message += ` *المطلوب:*%0A${needed.replace(/\n/g, "%0A")}%0A%0A`;
     message += ` *بيانات العميل:*%0A`;
-    message += `└ الاسم: ${name}%0A`;
-    message += `└ الهاتف: ${phone1}${phone2 ? " | " + phone2 : ""}%0A%0A`;
+    message += ` الاسم: ${name}%0A`;
+    message += ` الهاتف: ${phone1}${phone2 ? " | " + phone2 : ""}%0A%0A`;
     message += ` *العنوان:*%0A${address.replace(/\n/g, "%0A")}%0A%0A`;
     if (notes) {
         message += ` *ملاحظات:*%0A${notes.replace(/\n/g, "%0A")}%0A%0A`;
     }
     message += `──────────────────%0A`;
-    message += `شكرًا لثقتكم `;
 
     // **التغيير هنا:** إزالة رقم محدد واستخدام رابط مشاركة عامة
     // سيؤدي هذا الرابط إلى فتح تطبيق واتساب وعرض الرسالة، ثم يطلب من المستخدم اختيار جهة الاتصال للإرسال إليها.
@@ -153,6 +152,7 @@ function sendToWhatsApp() {
 </script>
 </body>
 </html>
+
 
 
 
