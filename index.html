@@ -21,7 +21,7 @@
         }
         img.logo {
             display: block;
-            width: 140px;
+            width: 300px;
             margin: 0 auto 20px;
         }
         h2 {
@@ -80,27 +80,27 @@
     <img src="LOGO-BLUE.png" class="logo" alt="Halal Market Logo">
     <h2>طلب جديد - Halal Market</h2>
     
-    <label>فرع</label>
+    <label>فـــــرع</label>
     <select id="branch">
-        <option value="المرج القديمه">المرج القديمه</option>
-        <option value="المرج الجديده">المرج الجديده</option>
-        <option value="القلج">القلج</option>
-        <option value="الجبل الاصفر">الجبل الاصفر</option>
-        <option value="الخانكه">الخانكه</option>
-        <option value="ابو زعبل">ابو زعبل</option>
+        <option value="المـــرج القديمــه">المـــرج القديـــمه</option>
+        <option value="المـــرج الجديـــده">المــرج الجديـــده</option>
+        <option value="القــلــــج">القــلـــج</option>
+        <option value="الجبــل الاصفــر">الجبــل الاصفــر</option>
+        <option value="الخانكــــه">الخانكــــه</option>
+        <option value="ابو زعبـــل">ابو زعبـــل</option>
     </select>
 
-    <label>مطلوب</label>
+    <label>مطلــــــوب</label>
     <textarea id="needed" rows="4" placeholder="اكتب كل الصنف المطلوب كمية ونوع..."></textarea>
 
     <h3>معلومات العميل</h3>
-    <label>اسم العميل</label>
+    <label>اســــم العميل</label>
     <input type="text" id="customerName" placeholder="مثال: أحمد محمد">
 
-    <label>رقم العميل (أو رقم المستلم)</label>
+    <label>رقم العميــــل (أو رقم المستلم)</label>
     <input type="text" id="phone1" placeholder="مثال: 01012345678" dir="ltr">
 
-    <label>رقم آخر (اختياري)</label>
+    <label>رقم آخـــــر (اختياري)</label>
     <input type="text" id="phone2" placeholder="رقم إضافي إن وجد">
 
     <label>العنوان بالتفصيل</label>
@@ -131,7 +131,7 @@ function sendToWhatsApp() {
 
     // بناء الرسالة بشكل جميل ومنسق
     let message = `* طلب جديد - HALAL MARKET* %0A%0A`;
-    message += ` *الفرع:* ${branch}%0A%0A`;
+    message += ` *فــرع:* ${branch}%0A%0A`;
     message += ` *المطلوب:*%0A${needed.replace(/\n/g, "%0A")}%0A%0A`;
     message += ` *بيانات العميل:*%0A`;
     message += ` الاسم: ${name}%0A`;
@@ -152,6 +152,7 @@ function sendToWhatsApp() {
 </script>
 </body>
 </html>
+
 
 
 
